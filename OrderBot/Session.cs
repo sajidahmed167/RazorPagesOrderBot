@@ -31,7 +31,7 @@ namespace OrderBot
                 case State.SYMPTOMS:
                     this.oOrder.Size = sInMessage;
                     this.oOrder.Save();
-                    aMessages.Add("What are the Symptoms for your visit, for multiple symptoms write each with coma in between? (Example: Fever,Coughing,Backaches)");
+                    aMessages.Add("What are the Symptoms for your visit, for multiple symptoms write each with comma in between? (Example: Fever,Coughing,Backaches)");
                     this.nCur = State.DATE;
                     break;
                 case State.DATE:
