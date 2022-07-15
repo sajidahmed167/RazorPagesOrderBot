@@ -17,7 +17,7 @@ namespace OrderBot.tests
         {
             Session oSession = new Session("12345");
             String sInput = oSession.OnMessage("hello")[0];
-            Assert.True(sInput.Contains("Welcome"));
+            Assert.True(sInput.ToLower().Contains("welcome"));
         }
         [Fact]
         public void TestShawarama()
@@ -34,7 +34,7 @@ namespace OrderBot.tests
             Assert.True(sInput.ToLower().Contains("size"));
         }
         [Fact]
-        public void TestLarge()
+        public void TestSymptoms()
         {
             Session oSession = new Session("12345");
             oSession.OnMessage("hello");
@@ -54,5 +54,17 @@ namespace OrderBot.tests
             Assert.True(sInput.ToLower().Contains("large"));
             Assert.True(sInput.ToLower().Contains("chicken"));
         }
+        [Fact]
+        public void TestConfirm()
+        {
+            string sPath = DB.GetConnectionString();
+            Session oSession = new Session("12345");
+            oSession.OnMessage("hello");
+            oSession.OnMessage("sajid");
+            oSession.OnMessage("fever");
+            String sInput = oSession.OnMessage("21 july 2022")[0];
+            Assert.True(sInput.ToLower().Contains("appointment"));
+        }
+
     }
 }

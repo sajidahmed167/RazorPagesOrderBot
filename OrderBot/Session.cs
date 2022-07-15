@@ -25,7 +25,7 @@ namespace OrderBot
             {
                 case State.WELCOMING:
                     aMessages.Add("Welcome to Flu Fighters!");
-                    aMessages.Add("Please enter your First name and Mobile number? (example: John Doe,+18888888888)");
+                    aMessages.Add("Please enter your Full name? (example: John Doe)");
                     this.nCur = State.SYMPTOMS;
                     break;
                 case State.SYMPTOMS:
