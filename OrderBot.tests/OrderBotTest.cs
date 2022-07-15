@@ -17,7 +17,7 @@ namespace OrderBot.tests
         {
             Session oSession = new Session("12345");
             String sInput = oSession.OnMessage("hello")[0];
-            Assert.True(sInput.Contains("Welcome"));
+            Assert.True(sInput.ToLower().Contains("welcome"));
         }
         [Fact]
         public void TestName()
@@ -27,7 +27,6 @@ namespace OrderBot.tests
             Assert.True(sInput.ToLower().Contains("name"));
         }
         [Fact]
-
         public void TestSymptoms()
         {
             Session oSession = new Session("12345");
@@ -45,5 +44,17 @@ namespace OrderBot.tests
             String sInput = oSession.OnMessage("fever")[0];
             Assert.True(sInput.ToLower().Contains("date"));
         }
+        [Fact]
+        public void TestConfirm()
+        {
+            string sPath = DB.GetConnectionString();
+            Session oSession = new Session("12345");
+            oSession.OnMessage("hello");
+            oSession.OnMessage("sajid");
+            oSession.OnMessage("fever");
+            String sInput = oSession.OnMessage("21 july 2022")[0];
+            Assert.True(sInput.ToLower().Contains("appointment"));
+        }
+
     }
 }
