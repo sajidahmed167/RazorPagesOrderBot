@@ -25,17 +25,20 @@ namespace OrderBot
             {
                 case State.WELCOMING:
                     aMessages.Add("Welcome to Flu Fighters!");
-                    aMessages.Add("Please enter your First name and Mobile number? (example: John Doe,+18888888888)");
+                    this.oOrder.Name = sInMessage;
+                    this.oOrder.Save();
+                    aMessages.Add("Please enter your Full name? (example: John Doe)");
                     this.nCur = State.SYMPTOMS;
                     break;
                 case State.SYMPTOMS:
-                    this.oOrder.Size = sInMessage;
+                    this.oOrder.Symptoms = sInMessage;
                     this.oOrder.Save();
                     aMessages.Add("What are the Symptoms for your visit, for multiple symptoms write each with comma in between? (Example: Fever,Coughing,Backaches)");
                     this.nCur = State.DATE;
                     break;
                 case State.DATE:
-                    string sProtein = sInMessage;
+                    this.oOrder.Appointmentdate = DateOnly.Parse(sInMessage);
+                    this.oOrder.Save();
                     aMessages.Add("What date are you available to visit us? (Example: 8 July 2022)");
                     this.nCur = State.CONFIRM;
                     break;
