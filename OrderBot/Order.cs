@@ -4,19 +4,19 @@ namespace OrderBot
 {
     public class Order : ISQLModel
     {
-        private string _name = String.Empty;
+        private string _patientname = String.Empty;
         private string _phone = String.Empty;
         private string _symptoms = String.Empty;
-        private DateOnly? _appointmentdate = null;
+        private string _appointmentdate = String.Empty;
 
         public string Phone{
             get => _phone;
             set => _phone = value;
         }
 
-        public string Name{
-            get => _name;
-            set => _name = value;
+        public string Patientname{
+            get => _patientname;
+            set => _patientname = value;
         }
 
         public string Symptoms{
@@ -24,7 +24,7 @@ namespace OrderBot
             set => _symptoms = value;
         }
 
-        public DateOnly? Appointmentdate{
+        public string Appointmentdate{
             get => _appointmentdate;
             set => _appointmentdate = value;
         } 
@@ -39,10 +39,10 @@ namespace OrderBot
                 commandUpdate.CommandText =
                 @"
         UPDATE orders
-        SET name = $name , symptoms = $symptoms, appointmentdate = $appointmentdate
+        SET patientname = $patientname , symptoms = $symptoms, appointmentdate = $appointmentdate
         WHERE phone = $phone
     ";
-                commandUpdate.Parameters.AddWithValue("$name", Name);
+                commandUpdate.Parameters.AddWithValue("$patientname", Patientname);
                 commandUpdate.Parameters.AddWithValue("$symptoms", Symptoms);
                 commandUpdate.Parameters.AddWithValue("$appointmentdate", Appointmentdate);
                 commandUpdate.Parameters.AddWithValue("$phone", Phone);
@@ -51,13 +51,13 @@ namespace OrderBot
                     var commandInsert = connection.CreateCommand();
                     commandInsert.CommandText =
                     @"
-            INSERT INTO orders(name, phone, appointmentdate, symptoms)
-            VALUES($name, $phone, $appointmentdate, $symptoms)
+            INSERT INTO orders(patientname, phone, appointmentdate, symptoms)
+            VALUES($patientname, $phone, $appointmentdate, $symptoms)
         ";
-                    commandInsert.Parameters.AddWithValue("$name", Name);
+                    commandInsert.Parameters.AddWithValue("$patientname", Patientname);
                     commandInsert.Parameters.AddWithValue("$phone", Phone);
-                    commandUpdate.Parameters.AddWithValue("$appointmentdate", Appointmentdate);
-                    commandUpdate.Parameters.AddWithValue("$symptoms", Symptoms);
+                    commandInsert.Parameters.AddWithValue("$appointmentdate", Appointmentdate);
+                    commandInsert.Parameters.AddWithValue("$symptoms", Symptoms);
                     int nRowsInserted = commandInsert.ExecuteNonQuery();
 
                 }
