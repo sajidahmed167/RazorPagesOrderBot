@@ -37,14 +37,26 @@ namespace OrderBot
                 case State.DATE:
                     this.oOrder.Symptoms = sInMessage;
                     this.oOrder.Save();
-                    aMessages.Add("What date are you available to visit us? (Example: 8 July 2022)");
+                    aMessages.Add("What date are you available to visit us? (Format: MM/DD/YY Example: 8/29/50)");
                     this.nCur = State.CONFIRM;
                     break;
                 case State.CONFIRM:
                     this.oOrder.Appointmentdate = sInMessage;
-                    this.oOrder.Save();
-                    aMessages.Add("Thank for booking an appointment");
-                    this.nCur = State.WELCOMING;
+                   try{
+                        DateOnly oDate = DateOnly.Parse(sInMessage);
+                        DateOnly today = DateOnly.FromDateTime(DateTime.Now);
+                         if (oDate < today){
+                        aMessages.Add("Please enter a future date");
+                   }
+                   else{
+                        this.oOrder.Save();
+                        aMessages.Add("Thank for booking an appointment");
+                        this.nCur = State.WELCOMING;
+                   }
+                   }
+                   catch{
+                        aMessages.Add("Invalid input or format, please try again");
+                   }
                     break;
 
 
