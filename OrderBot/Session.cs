@@ -37,7 +37,7 @@ namespace OrderBot
                 case State.DATE:
                     this.oOrder.Symptoms = sInMessage;
                     this.oOrder.Save();
-                    aMessages.Add("What date are you available to visit us? (Format: MM/DD/YY Example: 8/29/50)");
+                    aMessages.Add("What date are you available to visit us? (Format: MM/DD/YYYY)");
                     this.nCur = State.CONFIRM;
                     break;
                 case State.CONFIRM:

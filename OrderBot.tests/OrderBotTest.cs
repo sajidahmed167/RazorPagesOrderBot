@@ -53,8 +53,32 @@ namespace OrderBot.tests
             oSession.OnMessage("hello");
             oSession.OnMessage("sajid");
             oSession.OnMessage("fever");
-            String sInput = oSession.OnMessage("21 july 2022")[0];
+            String sInput = oSession.OnMessage("8/12/2030")[0];
             Assert.True(sInput.ToLower().Contains("appointment"));
+        }
+
+        [Fact]
+        public void TestInvalidFortmat()
+        {
+            string sPath = DB.GetConnectionString();
+            Session oSession = new Session("12345");
+            oSession.OnMessage("hello");
+            oSession.OnMessage("sajid");
+            oSession.OnMessage("fever");
+            String sInput = oSession.OnMessage("meow")[0];
+            Assert.True(sInput.ToLower().Contains("invalid"));
+        }
+
+        [Fact]
+        public void TestPastDate()
+        {
+            string sPath = DB.GetConnectionString();
+            Session oSession = new Session("12345");
+            oSession.OnMessage("hello");
+            oSession.OnMessage("sajid");
+            oSession.OnMessage("fever");
+            String sInput = oSession.OnMessage("8/29/10")[0];
+            Assert.True(sInput.ToLower().Contains("future"));
         }
 
     }
