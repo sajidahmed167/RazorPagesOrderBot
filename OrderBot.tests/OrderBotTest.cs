@@ -73,7 +73,7 @@ namespace OrderBot.tests
         public void TestPastDate()
         {
             string sPath = DB.GetConnectionString();
-            Session oSession = new Session("12345");
+            Session oSession = new Session("123456");
             oSession.OnMessage("hello");
             oSession.OnMessage("sajid");
             oSession.OnMessage("fever");
